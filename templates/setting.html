@@ -1,0 +1,19 @@
+<ion-view title="Setting" id="page20" class=" ">
+    <ion-content padding="true" class="has-header">
+<!--        <div>-->
+<!--            <h1 style="text-align:center;">Setting</h1>-->
+<!--        </div>-->
+
+        <label class="item item-input item-select">
+            <div class="input-label">
+                Text Size
+            </div>
+            <select  ng-model="selectedItem" ng-change="update(selectedItem)">
+                <option ng-repeat="item in font_sizes" ng-selected="selectedItem == item.value" value="{{item.value}}">{{item.label}}</option>
+            </select>
+        </label>
+        
+    </ion-content>
+</ion-view>
+
+

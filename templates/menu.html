@@ -1,0 +1,42 @@
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-stable">
+            <ion-nav-back-button></ion-nav-back-button>
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="side-menu21"></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left" id="side-menu21">
+        <ion-header-bar class="bar-stable">
+            <div class="title">Menu</div>
+        </ion-header-bar>
+        <ion-content padding="false" class="side-menu-left has-header">
+            <ion-list id="menu-list1" class=" ">
+                <span ng-repeat="row in sectionData" id="menu-list-item1">
+                    <ion-item ng-if="row.weekly == 1" ui-sref="menu.weekly({section_name: '{{row.title}}', section_color: '{{row.color}}', section_id: '{{row.ID}}', day: '{{(row.date) || todays_date}}'})" menu-close="" class="">
+                        <label class="section-color" ng-style="{'background-color': row.color}"></label>
+                        {{row.title}}
+                        <!--
+                        <span class="last-viewed-date" style="float:right">
+                            {{$root["section_"+row.ID+"_selected_parsha_title"]}}
+                        </span>
+                         -->
+                    </ion-item>
+                    <ion-item ng-if="row.weekly == 0" ui-sref="menu.chumashJune102016({section_name: '{{row.title}}', section_color: '{{row.color}}', section_id: '{{row.ID}}', day: '{{(row.date) || todays_date}}'})" menu-close="" class="">
+                        <label class="section-color" ng-style="{'background-color': row.color}"></label>
+                        {{row.title}}
+                        <!--
+                        <span class="last-viewed-date" style="float:right">
+                            {{$root["section_"+row.ID+"_selected_date"]}}
+                        </span>
+                         -->
+                    </ion-item>
+                </span>
+                <ion-item class="item-icon-left" menu-close ui-sref="menu.setting"><i class="icon ion-android-settings"></i>Settings</ion-item>
+                <ion-item class="item-icon-left" menu-close ui-sref="menu.about"><i class="icon ion-information"></i>About</ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>
