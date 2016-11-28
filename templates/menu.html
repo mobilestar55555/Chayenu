@@ -24,6 +24,7 @@
                         </span>
                          -->
                     </ion-item>
+                    
                     <ion-item ng-if="row.weekly == 0" ui-sref="menu.chumashJune102016({section_name: '{{row.title}}', section_color: '{{row.color}}', section_id: '{{row.ID}}', day: '{{(row.date) || todays_date}}'})" menu-close="" class="">
                         <label class="section-color" ng-style="{'background-color': row.color}"></label>
                         {{row.title}}
@@ -35,7 +36,6 @@
                     </ion-item>
                 </span>
                 <ion-item class="item-icon-left" menu-close ui-sref="menu.setting"><i class="icon ion-android-settings"></i>Settings</ion-item>
-                <ion-item class="item-icon-left" menu-close ui-sref="menu.about"><i class="icon ion-information"></i>About</ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>

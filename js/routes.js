@@ -83,6 +83,15 @@ angular.module('app.routes', [])
             }
         }
     })
+    .state('menu.font_size', {
+           url: '/setting',
+           views: {
+           'side-menu21': {
+           templateUrl: 'templates/fontSize.html',
+           controller: 'settingCtrl'
+           }
+           }
+    })
     .state('menu.about', {
        url: '/about',
        views: {

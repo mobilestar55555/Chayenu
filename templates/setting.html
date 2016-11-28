@@ -1,19 +1,24 @@
-<ion-view title="Setting" id="page20" class=" ">
-    <ion-content padding="true" class="has-header">
-<!--        <div>-->
-<!--            <h1 style="text-align:center;">Setting</h1>-->
-<!--        </div>-->
-
-        <label class="item item-input item-select">
-            <div class="input-label">
-                Text Size
-            </div>
-            <select  ng-model="selectedItem" ng-change="update(selectedItem)">
-                <option ng-repeat="item in font_sizes" ng-selected="selectedItem == item.value" value="{{item.value}}">{{item.label}}</option>
-            </select>
-        </label>
+<ion-view id="page20" hide-nav-bar="hideNavigation" can-swipe-back="false">
+    <ion-nav-bar class="bar-positive" align-title="center" ng-style="{'background-color': sectionColor}">
+        <ion-nav-buttons side="left">
+            <button ng-click="hashtag();openModal();" class="button button-icon icon ion-navicon" style="color: #bad9b5;"></button>
+        </ion-nav-buttons>
+        <ion-nav-title>
+            <label class="page-label page-title" style="color: #bad9b5;margin-top: 15px;">SETTINGS</label>
+        </ion-nav-title>
         
+    </ion-nav-bar>
+    
+    <ion-content padding="true" class="has-header" style="background-color: #f8f8f8;">
+        <ion-list>
+            <ion-item ui-sref="menu.about()" menu-close="" class="">
+                About
+                <i class="ion-chevron-right" style="float:right;color: #dddddd;"></i>
+            </ion-item>
+            <ion-item ui-sref="menu.font_size()" menu-close="" class="">
+                Text Size
+                <i class="ion-chevron-right" style="float:right;color: #dddddd;"></i>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>
-
-

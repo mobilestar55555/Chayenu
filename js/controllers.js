@@ -373,6 +373,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                   temp_eddt.setDate(temp_eddt.getDate()+1);
                   
                   if(temp_eddt >= selected_dt && selected_dt >= stdt){
+                      $scope.parsha_title = parsha.text_eng;
                       parsha_id = parsha.ID;
                       window.localStorage["section_"+section_id+"_selected_parsha_title"] = parsha.text_eng;
                       $scope.parsha_title = parsha.text_eng;
@@ -531,21 +532,6 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                 });
             }
             
-})
-.controller('settingCtrl', function($scope, $rootScope) {
-    $scope.selectedItem = window.localStorage['selected_font_size'] || "small";
-    $rootScope.font_size = "font-size-"+$scope.selectedItem;
-    $scope.font_sizes = [{value:"small",label:"Small"}, {value:"medium",label:"Medium"}, {value:"large",label:"Large"}];
-    
-    $scope.update = function(font_size) {
-        $rootScope.font_size = "font-size-"+font_size;
-        window.localStorage['selected_font_size'] = font_size;
-    }
-    
-    
-})
-.controller('aboutCtrl', function($scope, $rootScope) {
-         
 })
 
 .controller('DailyStudyController', function($scope, $ionicScrollDelegate, $location, TextService, $stateParams, $rootScope, ApiService, $ionicLoading, $filter, ionicDatePicker, ParshaService) {
@@ -932,4 +918,23 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
               });
         
         }
+    })
+    .controller('settingCtrl', function($scope, $rootScope, $state) {
+        $scope.selectedItem = window.localStorage['selected_font_size'] || "small";
+        $rootScope.font_size = "font-size-"+$scope.selectedItem;
+        $scope.font_sizes = [{value:"small",label:"Small"}, {value:"medium",label:"Medium"}, {value:"large",label:"Large"}];
+
+        $scope.update = function(font_size) {
+            $rootScope.font_size = "font-size-"+font_size;
+            window.localStorage['selected_font_size'] = font_size;
+        }
+        $scope.goBack = function() {
+            $state.go('menu.setting');
+        };
+
+    })
+    .controller('aboutCtrl', function($scope, $rootScope, $ionicHistory, $state) {
+        $scope.goBack = function() {
+            $state.go('menu.setting');
+        };
     })

@@ -368,3 +368,64 @@ h1{
     justify-content: center;
     align-items: center;
 }
+
+
+
+#page20 .bar.bar-positive{
+    border-color: #f8f8f8;
+    background-image: none;
+}
+
+#page20 .padding{
+    padding: 0px;
+}
+
+#page20 .padding .list{
+    border-top: solid 2px #dddddd;
+}
+
+#page20 .padding .list .item-content{
+    padding-right: 15px;
+}
+
+#page20 .bar.bar-positive{
+    border-color: #f8f8f8;
+    background-image: none;
+}
+#page21 .bar.bar-positive{
+    border-color: #f8f8f8;
+    background-image: none;
+}
+#page21 .padding{
+    padding: 0px;
+}
+#page20 .scroll-content{
+    background-color: #f8f8f8;
+}
+#page21 .scroll-content{
+    background-color: #f8f8f8;
+}
+
+#page20 .padding{
+    padding: 0px;
+}
+
+#page20 .padding .list{
+    border-top: solid 2px #dddddd;
+}
+
+#page20 .padding .list .item-content{
+    padding-right: 15px;
+}
+
+
+
+/* modal menu*/
+#modal_menu_list .list .item{
+    border-color: white;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+}
+#modal_menu_list .list .item-content{
+    background-color: #eaf2e9;
+}
