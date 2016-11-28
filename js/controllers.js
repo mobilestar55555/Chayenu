@@ -864,6 +864,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                       $rootScope["section_"+$stateParams['section_id']+"_selected_parsha_title"] = parsha.text_eng;
                       window.localStorage["section_"+$stateParams['section_id']+"_selected_parsha_title"] = parsha.text_eng;
                       $scope.weekly_index = i;    /* added 2016-11-16*/
+                      $rootScope.daily_parsha_title = $scope.parsha_title;
               console.log('weekly_index ->'+$scope.weekly_index);
                   }
               

@@ -344,6 +344,8 @@ h1{
     width: 40%;
     border: none;
     bottom: 1.5em;
+    min-height: 30px !important;
+    max-height: 36px !important;
 }
 
 .ionic_datepicker_popup .popup .date_selection .calendar_grid .selected_date{
@@ -365,8 +367,4 @@ h1{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.ionic_datepicker_popup .popup .popup-buttons .button{
-    min-height: 30px;
 }
