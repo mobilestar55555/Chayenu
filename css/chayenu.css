@@ -132,37 +132,37 @@ em,i{
 }
 
 .ionic_datepicker_popup .popup-body .selected_date_full {
-    background-color: #009fe3 !important;
+/*    background-color: #009fe3 !important;*/
 }
 .ionic_datepicker_popup .popup-buttons button {
-    background-color: #009fe3 !important;
+/*    background-color: #009fe3 !important;*/
 }
 
 .ionic_datepicker_popup .header, .ionic_datepicker_modal .footer {
-    background-color: #009fe3 !important;
+/*    background-color: #009fe3 !important;*/
 }
 
 .ionic_datepicker_popup .today {
-    border: 1px solid #009fe3 !important;
+/*    border: 1px solid #009fe3 !important;*/
 }
 
 .ionic_datepicker_popup .selected_date {
-    background-color: #009fe3 !important;
+/*    background-color: #009fe3 !important;*/
 }
 .ionic_datepicker_popup .popup-body .show_nav .prev_btn_section {
-    color: #009fe3 !important;
+/*    color: #009fe3 !important;*/
 }
 
 .ionic_datepicker_popup .popup-body .show_nav .prev_btn_section button {
-    color: #009fe3 !important;
+/*    color: #009fe3 !important;*/
 }
 
 .ionic_datepicker_popup .popup-body .show_nav .next_btn_section {
-    color: #009fe3 !important;
+/*    color: #009fe3 !important;*/
 }
 
 .ionic_datepicker_popup .popup-body .show_nav .next_btn_section button {
-    color: #009fe3 !important;
+/*    color: #009fe3 !important;*/
 }
 
 .ionic_datepicker_popup .popup{
@@ -225,26 +225,26 @@ h1{
     font-size: 14px !important;
 }
 
+
 /* customizing header 2016-11-20 */
 .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader){
-    height: 90px;
+    height: 76px;
 }
 .platform-ios.platform-cordova:not(.fullscreen) .has-header, .platform-ios.platform-cordova:not(.fullscreen) .bar-subheader{
-    top: 92px;
+    top: 76px;
 }
 .nav-bar-block, .bar {
     background-color: inherit !important;
 }
 .bar .title{
-    height: 70px !important;
-    margin-top: 20px !important;
+    height: 62px !important;
+    margin-top: 14px !important;
 }
 .page-label{
     display: block;
 }
 .page-title{
     font-size: 1.3em;
-    font-weight: 600;
 }
 .weekly-page-title{
     margin-top: 8px;
@@ -266,6 +266,7 @@ h1{
 .bar .buttons-right{
     right: 26px !important;
 }
+
 .section-color{
     display: block !important;
     position: absolute !important;
@@ -275,5 +276,97 @@ h1{
     top: 0px !important;
     width: 6px !important;
 }
-
 /* end customizing header*/
+.ionic_datepicker_popup .popup{
+    border-radius: 10px;
+}
+.ionic_datepicker_popup .popup .popup-body{
+    padding: 0px;
+    border-radius: 10px;
+}
+.date_popup_title{
+    background-color: #F3F3F3;
+    text-align: center;
+    height: 60px;
+    font-size: 20px;
+    padding: 19px;
+    color: #A0A0A0;
+}
+.date_selected{
+    font-size: 20px;
+    color: #bad9b5;
+    font-weight: bold;
+    text-align: center;
+}
+.date_selected_parsha_title{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+.ionic_datepicker_popup .popup-buttons .button_set{
+    border-radius: 0 0 10px 10px;
+    background-color: #f3f3f3;
+    color: #797979;
+    height: 70px;
+    font-size: 22px;
+    text-transform: uppercase;
+    height: 6em;
+    display: block !important;
+    width: 100%;
+}
+.ionic_datepicker_popup .popup .date_popup_title{
+    font-weight: bold;
+    color: #797979;
+}
+.ionic_datepicker_popup .popup .btn-close{
+    float: right;
+    color: #797979;
+    margin-right: 10px;
+}
+.popup .button_today{
+    /*display: none;*/
+}
+.popup .button_close{
+    display: none;
+}
+.ionic_datepicker_popup .popup .date_selection{
+    text-align: center;
+}
+.ionic_datepicker_popup .popup{
+    background-color: white;
+    text-align: center;
+}
+.ionic_datepicker_popup .popup .button_today{
+    background-color: #bad9b5;
+    color: white;
+    border-radius: 100px;
+    height: 2em;
+    width: 40%;
+    border: none;
+    bottom: 1.5em;
+}
+
+.ionic_datepicker_popup .popup .date_selection .calendar_grid .selected_date{
+    background-color: #bad9b5;
+    border-radius: 1px;
+}
+
+.ionic_datepicker_popup .popup .date_selection .calendar_grid .today{
+    border: 1px solid #bad9b5;
+    border-radius: 1px;
+}
+
+.ionic_datepicker_popup .popup .popup-buttons{
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ionic_datepicker_popup .popup .popup-buttons .button{
+    min-height: 30px;
+}

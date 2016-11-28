@@ -60,9 +60,38 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
         bindTextData();
         window.localStorage["section_weekly_index_"+section_id] = $scope.weekly_index;
     }
-    
+    $scope.showDatePicker = function() {
+        var selected_date = angular.copy($scope.selected_date);
+
+        var ipObj1 = {
+            callback: function (val) {  //Mandatory
+                console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+                var selected_dt = new Date(val)
+                $scope.selected_date = angular.copy(selected_dt);
+                var date = selected_dt.format("dddd, mmm, d, yyyy");
+                window.localStorage["section_"+$stateParams['section_id']] = date;
+                $scope.date = date;
+                $rootScope["section_"+$stateParams['section_id']+"_selected_date"] = selected_dt.format("dddd, mmm, d, yyyy");
+
+                bindTextData();
+            },
+            isDaily: false,
+            dateFormat: 'MMMM dd, yyyy',
+            from: $rootScope.st_date, //Optional
+            to: $rootScope.ed_date, //Optional
+            disabledDates: $scope.disable_days,
+            inputDate: selected_date,      //Optional
+            mondayFirst: false,          //Optional
+            disableWeekdays: [0],       //Optional
+            closeOnSelect: false,       //Optional
+            disableWeekdays: [7],
+            templateType: 'popup'       //Optional
+        };
+        ionicDatePicker.openDatePicker(ipObj1);
+    };
+            
+            
     bindTextData();
-    
     
     function bindTextData(){
        $ionicLoading.show({
@@ -245,11 +274,15 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             
                     bindTextData();
                 },
+                selectedDateCallback: function(val){
+                    console.log('select date : ' + val, new Date(val));
+                },
                 from: $rootScope.st_date, //Optional
                 to: $rootScope.ed_date, //Optional
             
                 disabledDates: $scope.disable_days,
-            
+                isDaily: true,
+                dateFormat: 'MMMM dd, yyyy',
                 inputDate: selected_date,      //Optional
                 mondayFirst: false,          //Optional
                 disableWeekdays: [0],       //Optional
@@ -302,6 +335,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             var section_id = window.localStorage["last_section_id"] || $scope.sectionData[0].ID;
             $scope.parsha_title = window.localStorage["section_"+section_id+"_selected_parsha_title"];
             console.log('xxxxxxx'+window.localStorage["section_"+section_id+"_selected_parsha_title"])
+            
             var dd = new Date().format("dddd, mmm, d'th', yyyy");
             var date = window.localStorage["section_"+section_id] || dd
             var parsha_days = [];
@@ -341,6 +375,9 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                   if(temp_eddt >= selected_dt && selected_dt >= stdt){
                       parsha_id = parsha.ID;
                       window.localStorage["section_"+section_id+"_selected_parsha_title"] = parsha.text_eng;
+                      $scope.parsha_title = parsha.text_eng;
+                      $rootScope.daily_parsha_title = $scope.parsha_title;
+
                   }
               
               }
@@ -553,6 +590,12 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             
                     bindTextData();
                 },
+                selectedDateCallback: function(val){
+                    console.log('select date : ' + val, new Date(val));
+                },
+                isDaily: true,
+                dateFormat: 'MMMM dd, yyyy',
+            
                 from: $rootScope.st_date, //Optional
                 to: $rootScope.ed_date, //Optional
                 disabledDates: $scope.disable_days,
@@ -645,6 +688,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                             $rootScope["section_"+$stateParams['section_id']+"_selected_parsha_title"] = parsha.text_eng;
                             $scope.parsha_title = parsha.text_eng;
                             window.localStorage["section_"+$stateParams['section_id']+"_selected_parsha_title"] = parsha.text_eng;
+                              $rootScope.daily_parsha_title = $scope.parsha_title;
                         }
                       
                     }
@@ -729,6 +773,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 
                 bindTextData();
             },
+            isDaily: false,
+            dateFormat: 'MMMM dd, yyyy',
             from: $rootScope.st_date, //Optional
             to: $rootScope.ed_date, //Optional
             disabledDates: $scope.disable_days,
