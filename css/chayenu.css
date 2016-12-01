@@ -429,3 +429,38 @@ h1{
 #modal_menu_list .list .item-content{
     background-color: #eaf2e9;
 }
+
+
+
+/*scroll-button*/
+/* Empty. Add your own CSS if you like */
+.float-button {
+    background-color:#bad9b5;
+    opacity: 0.9;
+    color: white;
+    border-radius: 50%;
+    /*border-radius:15% 0 0 0;*/
+    width: 30px;
+    padding: 25px;
+    font-size: 40px;
+    position: fixed;
+    bottom: 5%; /* Adjust height */
+    right: 5%; /* Adjust position */
+    z-index: 1000;
+}
+
+.float-button .height_fix {
+    margin-top: 100%;
+    border: 1px solid red;
+}
+
+.float-button .content {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    margin-top: -20px;
+    color: white;
+}

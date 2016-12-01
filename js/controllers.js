@@ -4,7 +4,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 
     var parsha_id = +window.localStorage['parsha_id'];
     var section_id = window.localStorage['last_section_id'];
-    
+    $scope.sttButton=false;
     $scope.date = window.localStorage["section_"+section_id];
     $scope.disable_days = [];
     $scope.weekly_index = parseInt(window.localStorage["section_weekly_index_"+section_id]) || 0;
@@ -16,6 +16,10 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     $scope.$on('syncing-complete', function(event, args) {
        bindTextData();
     });
+    $scope.scrollToTop = function() { //ng-click for back to top button
+        $ionicScrollDelegate.scrollTop(true);
+        $scope.sttButton=false;  //hide the button when reached top
+    };
     $scope.scrollEvent = function() {
         $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
         if ($scope.scrollamount > 80) {
@@ -27,6 +31,15 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                 $scope.hideNavigation = false;
             });
         }
+        var moveData = $scope.scrollamount;
+
+        $scope.$apply(function(){
+            if(moveData>300){
+                $scope.sttButton=true;
+            }else{
+                $scope.sttButton=false;
+            }
+        }); //apply
     };
     $scope.showPrevData = function(){
         if($scope.weekly_index == 0){
@@ -182,39 +195,42 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     $scope.disable_days = [];
     $scope.sectionColor = window.localStorage['last_section_color'] || "#da2b40";
     $scope.parsha_title = "";
-    
-            $rootScope.hashtag = function() {
-                if($rootScope.modal==undefined){
-                    $ionicModal.fromTemplateUrl('sidemenu.html', {
-                        scope: $rootScope,
-                        animation: 'slide-in-up',
-                        focusFirstInput: true
-                    }).then(function(modal) {
-                        $rootScope.modal = modal;
-                        $rootScope.modal.show();
-                    });
-                }
-            };
-            
-            $rootScope.openModal = function() {
+    $scope.sttButton=false;
+    $rootScope.hashtag = function() {
+        if($rootScope.modal==undefined){
+            $ionicModal.fromTemplateUrl('sidemenu.html', {
+                scope: $rootScope,
+                animation: 'slide-in-up',
+                focusFirstInput: true
+            }).then(function(modal) {
+                $rootScope.modal = modal;
                 $rootScope.modal.show();
-            };
-
-            $rootScope.closeModal = function() {
-                $rootScope.modal.hide();
-            };
-
-            $rootScope.$on('$destroy', function() {
-                $rootScope.modal.remove();
             });
+        }
+    };
+    
+    $rootScope.openModal = function() {
+        $rootScope.modal.show();
+    };
 
-            $rootScope.$on('modal.hidden', function() {
+    $rootScope.closeModal = function() {
+        $rootScope.modal.hide();
+    };
+
+    $rootScope.$on('$destroy', function() {
+        $rootScope.modal.remove();
+    });
+
+    $rootScope.$on('modal.hidden', function() {
 //                $rootScope.modal.remove();
-            });
+    });
 
-            $scope.$on('modal.removed', function() {});
+    $scope.$on('modal.removed', function() {});
             
-
+    $scope.scrollToTop = function() { //ng-click for back to top button
+        $ionicScrollDelegate.scrollTop(true);
+        $scope.sttButton=false;  //hide the button when reached top
+    };
     $scope.scrollEvent = function() {
         $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
         if ($scope.scrollamount > 80) {
@@ -226,6 +242,15 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                 $scope.hideNavigation = false;
             });
         }
+        var moveData = $scope.scrollamount;
+
+        $scope.$apply(function(){
+            if(moveData>300){
+                $scope.sttButton=true;
+            }else{
+                $scope.sttButton=false;
+            }
+        }); //apply
     };
 
     $scope.$on('syncing-complete', function(event, args) {
@@ -537,6 +562,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 .controller('DailyStudyController', function($scope, $ionicScrollDelegate, $location, TextService, $stateParams, $rootScope, ApiService, $ionicLoading, $filter, ionicDatePicker, ParshaService) {
         $scope.date = window.localStorage["section_"+$stateParams['section_id']];
         $scope.disable_days = [];
+        $scope.sttButton=false;
         if($stateParams['day'] && $scope.date === undefined){
             $scope.date = $stateParams['day']
         }
@@ -560,7 +586,12 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
         var parsha_id = +window.localStorage['parsha_id'];
         var section_id = +$stateParams['section_id'];
             
-            
+        $scope.scrollToTop = function() { //ng-click for back to top button
+            $ionicScrollDelegate.scrollTop(true);
+            $scope.sttButton=false;  //hide the button when reached top
+        };
+
+        
         $scope.showDatePicker = function() {
             var selected_date = angular.copy($scope.selected_date);
             
@@ -600,6 +631,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 		});
         $scope.scrollEvent = function() {
             $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
+            
             if ($scope.scrollamount > 80) {
                 $scope.$apply(function() {
                     $scope.hideNavigation = true;
@@ -609,6 +641,15 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                     $scope.hideNavigation = false;
                 });
             }
+            var moveData = $scope.scrollamount;
+            
+            $scope.$apply(function(){
+                if(moveData>300){
+                    $scope.sttButton=true;
+                }else{
+                    $scope.sttButton=false;
+                }
+            }); //apply
         };
 
         $scope.showPrevData = function(){
@@ -773,6 +814,12 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
         };
         ionicDatePicker.openDatePicker(ipObj1);
     };
+            
+    $scope.scrollToTop = function() { //ng-click for back to top button
+        $ionicScrollDelegate.scrollTop(true);
+        $scope.sttButton=false;  //hide the button when reached top
+    };
+            
     $scope.scrollEvent = function() {
         $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
         if ($scope.scrollamount > 80) {
@@ -784,6 +831,15 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                 $scope.hideNavigation = false;
             });
         }
+        var moveData = $scope.scrollamount;
+
+        $scope.$apply(function(){
+            if(moveData>300){
+                $scope.sttButton=true;
+            }else{
+                $scope.sttButton=false;
+            }
+        }); //apply
     };
 
     $scope.showPrevData = function(){
