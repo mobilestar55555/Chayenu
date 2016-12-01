@@ -20,19 +20,39 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
         $ionicScrollDelegate.scrollTop(true);
         $scope.sttButton=false;  //hide the button when reached top
     };
+    var cur_poss = 0;
+    var last_poss = 0;
+
     $scope.scrollEvent = function() {
         $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
-        if ($scope.scrollamount > 80) {
+        cur_poss = $scope.scrollamount;
+
+        if(cur_poss - last_poss > 10){
+            last_poss = cur_poss - 1;
+        }
+
+        if(last_poss - cur_poss > 10){
+            last_poss = cur_poss + 1;
+        }
+
+        if(last_poss > cur_poss){
+            $scope.$apply(function() {
+                $scope.hideNavigation = false;
+            });
+        }else{
             $scope.$apply(function() {
                 $scope.hideNavigation = true;
             });
-        } else {
+        }
+
+        if(cur_poss == 0){
             $scope.$apply(function() {
                 $scope.hideNavigation = false;
             });
         }
-        var moveData = $scope.scrollamount;
 
+
+        var moveData = $scope.scrollamount;
         $scope.$apply(function(){
             if(moveData>300){
                 $scope.sttButton=true;
@@ -41,6 +61,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             }
         }); //apply
     };
+            
     $scope.showPrevData = function(){
         if($scope.weekly_index == 0){
             return false;
@@ -231,26 +252,48 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
         $ionicScrollDelegate.scrollTop(true);
         $scope.sttButton=false;  //hide the button when reached top
     };
-    $scope.scrollEvent = function() {
-        $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
-        if ($scope.scrollamount > 80) {
-            $scope.$apply(function() {
-                $scope.hideNavigation = true;
-            });
-        } else {
-            $scope.$apply(function() {
-                $scope.hideNavigation = false;
-            });
-        }
-        var moveData = $scope.scrollamount;
+    var cur_poss = 0;
+    var last_poss = 0;
 
-        $scope.$apply(function(){
-            if(moveData>300){
-                $scope.sttButton=true;
-            }else{
-                $scope.sttButton=false;
-            }
-        }); //apply
+    $scope.scrollEvent = function() {
+    $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
+    cur_poss = $scope.scrollamount;
+
+    if(cur_poss - last_poss > 10){
+    last_poss = cur_poss - 1;
+    }
+
+    if(last_poss - cur_poss > 10){
+    last_poss = cur_poss + 1;
+    }
+
+    if(last_poss > cur_poss){
+    console.log('show');
+    $scope.$apply(function() {
+    $scope.hideNavigation = false;
+    });
+    }else{
+    console.log('hide');
+    $scope.$apply(function() {
+    $scope.hideNavigation = true;
+    });
+    }
+
+    if(cur_poss == 0){
+    $scope.$apply(function() {
+    $scope.hideNavigation = false;
+    });
+    }
+
+
+    var moveData = $scope.scrollamount;
+    $scope.$apply(function(){
+    if(moveData>300){
+    $scope.sttButton=true;
+    }else{
+    $scope.sttButton=false;
+    }
+    }); //apply
     };
 
     $scope.$on('syncing-complete', function(event, args) {
@@ -629,20 +672,41 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 		$scope.$on('syncing-complete', function(event, args) {
 			bindTextData();
 		});
+        var cur_poss = 0;
+        var last_poss = 0;
+            
         $scope.scrollEvent = function() {
             $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
+            cur_poss = $scope.scrollamount;
             
-            if ($scope.scrollamount > 80) {
+            if(cur_poss - last_poss > 10){
+                last_poss = cur_poss - 1;
+            }
+            
+            if(last_poss - cur_poss > 10){
+                last_poss = cur_poss + 1;
+            }
+            
+            if(last_poss > cur_poss){
+            console.log('show');
+                $scope.$apply(function() {
+                    $scope.hideNavigation = false;
+                });
+            }else{
+            console.log('hide');
                 $scope.$apply(function() {
                     $scope.hideNavigation = true;
                 });
-            } else {
+            }
+            
+            if(cur_poss == 0){
                 $scope.$apply(function() {
                     $scope.hideNavigation = false;
                 });
             }
-            var moveData = $scope.scrollamount;
             
+            
+            var moveData = $scope.scrollamount;            
             $scope.$apply(function(){
                 if(moveData>300){
                     $scope.sttButton=true;
@@ -820,26 +884,48 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
         $scope.sttButton=false;  //hide the button when reached top
     };
             
-    $scope.scrollEvent = function() {
-        $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
-        if ($scope.scrollamount > 80) {
-            $scope.$apply(function() {
-                $scope.hideNavigation = true;
-            });
-        } else {
-            $scope.$apply(function() {
-                $scope.hideNavigation = false;
-            });
-        }
-        var moveData = $scope.scrollamount;
+    var cur_poss = 0;
+    var last_poss = 0;
 
-        $scope.$apply(function(){
-            if(moveData>300){
-                $scope.sttButton=true;
-            }else{
-                $scope.sttButton=false;
-            }
-        }); //apply
+    $scope.scrollEvent = function() {
+    $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
+    cur_poss = $scope.scrollamount;
+
+    if(cur_poss - last_poss > 10){
+    last_poss = cur_poss - 1;
+    }
+
+    if(last_poss - cur_poss > 10){
+    last_poss = cur_poss + 1;
+    }
+
+    if(last_poss > cur_poss){
+    console.log('show');
+    $scope.$apply(function() {
+    $scope.hideNavigation = false;
+    });
+    }else{
+    console.log('hide');
+    $scope.$apply(function() {
+    $scope.hideNavigation = true;
+    });
+    }
+
+    if(cur_poss == 0){
+    $scope.$apply(function() {
+    $scope.hideNavigation = false;
+    });
+    }
+
+
+    var moveData = $scope.scrollamount;
+    $scope.$apply(function(){
+    if(moveData>300){
+    $scope.sttButton=true;
+    }else{
+    $scope.sttButton=false;
+    }
+    }); //apply
     };
 
     $scope.showPrevData = function(){
