@@ -468,3 +468,6 @@ h1{
 .modal-backdrop-bg{
     display: none;
 }
+.available-week{
+    background-color: #bad9b5;
+}

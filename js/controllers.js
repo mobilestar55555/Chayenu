@@ -26,7 +26,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     $scope.scrollEvent = function() {
         $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
         cur_poss = $scope.scrollamount;
-
+        if(cur_poss < 1) return false;
         if(cur_poss - last_poss > 10){
             last_poss = cur_poss - 1;
         }
@@ -258,7 +258,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     $scope.scrollEvent = function() {
     $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
     cur_poss = $scope.scrollamount;
-
+    if(cur_poss < 1) return false;
     if(cur_poss - last_poss > 10){
     last_poss = cur_poss - 1;
     }
@@ -679,6 +679,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
             cur_poss = $scope.scrollamount;
             
+            if(cur_poss < 1) return false;
+            
             if(cur_poss - last_poss > 10){
                 last_poss = cur_poss - 1;
             }
@@ -698,7 +700,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                     $scope.hideNavigation = true;
                 });
             }
-            
+        console.log('----------------->'+cur_poss);
             if(cur_poss == 0){
                 $scope.$apply(function() {
                     $scope.hideNavigation = false;
@@ -890,7 +892,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     $scope.scrollEvent = function() {
     $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
     cur_poss = $scope.scrollamount;
-
+    if(cur_poss < 1) return false;
     if(cur_poss - last_poss > 10){
     last_poss = cur_poss - 1;
     }

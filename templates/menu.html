@@ -14,25 +14,17 @@
         </ion-header-bar>
         <ion-content padding="false" class="side-menu-left has-header">
             <ion-list id="menu-list1" class=" ">
-                <span ng-repeat="row in sectionData" id="menu-list-item1">
-                    <ion-item ng-if="row.weekly == 1" ui-sref="menu.weekly({section_name: '{{row.title}}', section_color: '{{row.color}}', section_id: '{{row.ID}}', day: '{{(row.date) || todays_date}}'})" menu-close="" class="">
+                <span ng-repeat="row in sectionData" ng-if="row.weekly==0" id="menu-list-item1">
+                    <ion-item  menu-close="" ui-sref="menu.chumashJune102016({section_name: '{{row.title}}', section_color: '{{row.color}}', section_id: '{{row.ID}}', day: '{{(row.date) || todays_date}}'})">
                         <label class="section-color" ng-style="{'background-color': row.color}"></label>
                         {{row.title}}
-                        <!--
-                        <span class="last-viewed-date" style="float:right">
-                            {{$root["section_"+row.ID+"_selected_parsha_title"]}}
-                        </span>
-                         -->
                     </ion-item>
-                    
-                    <ion-item ng-if="row.weekly == 0" ui-sref="menu.chumashJune102016({section_name: '{{row.title}}', section_color: '{{row.color}}', section_id: '{{row.ID}}', day: '{{(row.date) || todays_date}}'})" menu-close="" class="">
+                </span>
+                <br/>
+                <span ng-repeat="row in sectionData" ng-if="row.weekly == 1"  id="menu-list-item1">
+                    <ion-item  menu-close="" ui-sref="menu.weekly({section_name: '{{row.title}}', section_color: '{{row.color}}', section_id: '{{row.ID}}', day: '{{(row.date) || todays_date}}'})">
                         <label class="section-color" ng-style="{'background-color': row.color}"></label>
                         {{row.title}}
-                        <!--
-                        <span class="last-viewed-date" style="float:right">
-                            {{$root["section_"+row.ID+"_selected_date"]}}
-                        </span>
-                         -->
                     </ion-item>
                 </span>
                 <ion-item class="item-icon-left" menu-close ui-sref="menu.setting"><i class="icon ion-android-settings"></i>Settings</ion-item>
