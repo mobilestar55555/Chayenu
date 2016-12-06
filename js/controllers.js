@@ -132,7 +132,6 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
        });
         var parsha_id = 0;
         var selected_dt = $scope.selected_date;
-        selected_dt.setHours(Math.abs(selected_dt.getTimezoneOffset() / 60));
         $scope.parsha_days = [];
         
     
@@ -155,6 +154,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
               
               var temp_eddt = angular.copy(eddt);
               temp_eddt.setDate(temp_eddt.getDate()+DATE_OFFSET);
+              selected_dt.setHours(temp_stdt.getHours());
               if(temp_eddt >= selected_dt && selected_dt >= temp_stdt){
                   parsha_id = parsha.ID;
                   $scope.parsha_title = parsha.text_eng;
@@ -419,7 +419,6 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             $scope.selected_date = new Date(stored_date);
             
             var selected_dt = new Date($scope.date.replace('th,', ','));
-            selected_dt.setHours(Math.abs(selected_dt.getTimezoneOffset() / 60));
             
             ParshaService.getData(selected_dt)
             .then(function(result){
@@ -440,9 +439,10 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                   
                   var temp_stdt = angular.copy(stdt);
                   temp_stdt.setDate(temp_stdt.getDate()+DATE_OFFSET);
+                  
                   var temp_eddt = angular.copy(eddt);
                   temp_eddt.setDate(temp_eddt.getDate()+DATE_OFFSET);
-                  
+                  selected_dt.setHours(temp_stdt.getHours());
                   if(temp_eddt >= selected_dt && selected_dt >= temp_stdt){
                       $scope.parsha_title = parsha.text_eng;
                       parsha_id = parsha.ID;
@@ -756,7 +756,6 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             });
             var parsha_id = 0;
             var selected_dt = $scope.selected_date
-            selected_dt.setHours(Math.abs(selected_dt.getTimezoneOffset() / 60));
             var parsha_days = [];
             
             
@@ -779,6 +778,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                       
                         var temp_eddt = angular.copy(eddt);
                         temp_eddt.setDate(temp_eddt.getDate()+DATE_OFFSET);
+                        selected_dt.setHours(temp_stdt.getHours());
+                    
                         if(temp_eddt >= selected_dt && selected_dt >= temp_stdt){
                             parsha_id = parsha.ID;
                             $rootScope["section_"+$stateParams['section_id']+"_selected_parsha_title"] = parsha.text_eng;
@@ -971,7 +972,6 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
         var parsha_id = 0;
         var selected_dt = $scope.selected_date
         $scope.parsha_days = [];
-        selected_dt.setHours(Math.abs(selected_dt.getTimezoneOffset() / 60));
             
         ParshaService.getData(selected_dt)
         .then(function(result){
@@ -992,7 +992,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
               
                     var temp_eddt = angular.copy(eddt);
                     temp_eddt.setDate(temp_eddt.getDate()+DATE_OFFSET);
-              
+                    selected_dt.setHours(temp_stdt.getHours());
                   if(temp_eddt >= selected_dt && selected_dt >= temp_stdt){
                       parsha_id = parsha.ID;
                       $scope.parsha_title = parsha.text_eng;
