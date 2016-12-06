@@ -1,5 +1,7 @@
 var ENV = "phone";
 var MIN_DATE = "2016-10-24";
+var DATE_OFFSET = 0;
+DATE_OFFSET = new Date().getTimezoneOffset() > 0 ? 1 : 0
 
 angular.module('app.services', [])
 

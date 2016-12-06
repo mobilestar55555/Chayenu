@@ -99,14 +99,13 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 
         var ipObj1 = {
             callback: function (val) {  //Mandatory
-                console.log('Return value from the datepicker popup is : ' + val, new Date(val));
                 var selected_dt = new Date(val)
                 $scope.selected_date = angular.copy(selected_dt);
                 var date = selected_dt.format("dddd, mmm, d, yyyy");
-                window.localStorage["section_"+$stateParams['section_id']] = date;
+                window.localStorage["section_"+section_id] = date;
                 $scope.date = date;
-                $rootScope["section_"+$stateParams['section_id']+"_selected_date"] = selected_dt.format("dddd, mmm, d, yyyy");
-
+                $rootScope["section_"+section_id+"_selected_date"] = selected_dt.format("dddd, mmm, d, yyyy");
+                console.log('Return value from the datepicker popup is : ' + val, new Date(val));
                 bindTextData();
             },
             isDaily: false,
@@ -132,7 +131,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
            template: '<ion-spinner icon="ios"></ion-spinner>'
        });
         var parsha_id = 0;
-        var selected_dt = $scope.selected_date
+        var selected_dt = $scope.selected_date;
+        selected_dt.setHours(Math.abs(selected_dt.getTimezoneOffset() / 60));
         $scope.parsha_days = [];
         
     
@@ -150,10 +150,12 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
               $rootScope.ed_date = $rootScope.ed_date < eddt ? eddt : $rootScope.ed_date;
               $scope.parsha_days.push([stdt, eddt]);
               
-              var temp_eddt = angular.copy(eddt);
-              temp_eddt.setDate(temp_eddt.getDate()+1);
+              var temp_stdt = angular.copy(stdt);
+              temp_stdt.setDate(temp_stdt.getDate()+DATE_OFFSET);
               
-              if(temp_eddt >= selected_dt && selected_dt >= stdt){
+              var temp_eddt = angular.copy(eddt);
+              temp_eddt.setDate(temp_eddt.getDate()+DATE_OFFSET);
+              if(temp_eddt >= selected_dt && selected_dt >= temp_stdt){
                   parsha_id = parsha.ID;
                   $scope.parsha_title = parsha.text_eng;
                   $rootScope["section_"+section_id+"_selected_parsha_title"] = parsha.text_eng;
@@ -166,7 +168,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
               parsha_id = result[0].ID;
               $scope.parsha_title = result[0].text_eng;
               $scope.selected_date = new Date(result[0].start_date);
-              $scope.selected_date.setDate($scope.selected_date.getDate()+1)
+              $scope.selected_date.setDate($scope.selected_date.getDate()+DATE_OFFSET)
               var date = $scope.selected_date.toDateString().slice(4,15);
               date = date.replace(date.substr(4,2), $scope.selected_date.getDate()+",");
               $scope.date = date;
@@ -175,10 +177,10 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
               $rootScope.default_parsha_title = result[0].text_eng;
           }
           var tmp_root_st_dt = angular.copy($rootScope.st_date);
-          $rootScope.st_date.setDate(tmp_root_st_dt.getDate()+1);
+          $rootScope.st_date.setDate(tmp_root_st_dt.getDate()+DATE_OFFSET);
           
           var tmp_root_ed_dt = angular.copy($rootScope.ed_date);
-          $rootScope.ed_date.setDate(tmp_root_ed_dt.getDate()+1);
+          $rootScope.ed_date.setDate(tmp_root_ed_dt.getDate()+DATE_OFFSET);
           
           var available_date = angular.copy($rootScope.st_date)
           var available = false;
@@ -187,8 +189,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
           while (available_date < $rootScope.ed_date) {
               for(i=0; i<$scope.parsha_days.length; i++){
                   day_item = angular.copy($scope.parsha_days[i]);
-                  day_item[1].setDate(day_item[1].getDate()+1);
-                  day_item[0].setDate(day_item[0].getDate()+1);
+                  day_item[1].setDate(day_item[1].getDate()+DATE_OFFSET);
+                  day_item[0].setDate(day_item[0].getDate()+DATE_OFFSET);
                   if(day_item[1] >= available_date && available_date >= day_item[0]){
                   available = true;
                   break;
@@ -268,12 +270,10 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     }
 
     if(last_poss > cur_poss){
-    console.log('show');
     $scope.$apply(function() {
     $scope.hideNavigation = false;
     });
     }else{
-    console.log('hide');
     $scope.$apply(function() {
     $scope.hideNavigation = true;
     });
@@ -419,6 +419,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             $scope.selected_date = new Date(stored_date);
             
             var selected_dt = new Date($scope.date.replace('th,', ','));
+            selected_dt.setHours(Math.abs(selected_dt.getTimezoneOffset() / 60));
             
             ParshaService.getData(selected_dt)
             .then(function(result){
@@ -437,10 +438,12 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                   
                   parsha_days.push([stdt, eddt]);
                   
+                  var temp_stdt = angular.copy(stdt);
+                  temp_stdt.setDate(temp_stdt.getDate()+DATE_OFFSET);
                   var temp_eddt = angular.copy(eddt);
-                  temp_eddt.setDate(temp_eddt.getDate()+1);
+                  temp_eddt.setDate(temp_eddt.getDate()+DATE_OFFSET);
                   
-                  if(temp_eddt >= selected_dt && selected_dt >= stdt){
+                  if(temp_eddt >= selected_dt && selected_dt >= temp_stdt){
                       $scope.parsha_title = parsha.text_eng;
                       parsha_id = parsha.ID;
                       window.localStorage["section_"+section_id+"_selected_parsha_title"] = parsha.text_eng;
@@ -452,10 +455,10 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
               }
                   
               var tmp_root_st_dt = angular.copy($rootScope.st_date);
-              $rootScope.st_date.setDate(tmp_root_st_dt.getDate()+1);
+              $rootScope.st_date.setDate(tmp_root_st_dt.getDate()+DATE_OFFSET);
 
               var tmp_root_ed_dt = angular.copy($rootScope.ed_date);
-              $rootScope.ed_date.setDate(tmp_root_ed_dt.getDate()+1);
+              $rootScope.ed_date.setDate(tmp_root_ed_dt.getDate()+DATE_OFFSET);
                   
               var available_date = angular.copy($rootScope.st_date)
               var available = false;
@@ -464,8 +467,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
               while (available_date < $rootScope.ed_date) {
                   for(i=0; i<parsha_days.length; i++){
                       day_item = angular.copy(parsha_days[i]);
-                      day_item[1].setDate(day_item[1].getDate()+1);
-                      day_item[0].setDate(day_item[0].getDate()+1);
+                      day_item[1].setDate(day_item[1].getDate()+DATE_OFFSET);
+                      day_item[0].setDate(day_item[0].getDate()+DATE_OFFSET);
                   
                       if(day_item[1] >= available_date && available_date >= day_item[0]){
                           available = true;
@@ -690,17 +693,15 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             }
             
             if(last_poss > cur_poss){
-            console.log('show');
                 $scope.$apply(function() {
                     $scope.hideNavigation = false;
                 });
             }else{
-            console.log('hide');
                 $scope.$apply(function() {
                     $scope.hideNavigation = true;
                 });
             }
-        console.log('----------------->'+cur_poss);
+        
             if(cur_poss == 0){
                 $scope.$apply(function() {
                     $scope.hideNavigation = false;
@@ -734,7 +735,6 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
         $scope.showNextData = function(){
             var dd = angular.copy($rootScope.ed_date);
             dd.setDate(dd.getDate()-1);
-            console.log(dd);
             if($scope.selected_date >= dd){
                 return false;
             }
@@ -756,6 +756,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             });
             var parsha_id = 0;
             var selected_dt = $scope.selected_date
+            selected_dt.setHours(Math.abs(selected_dt.getTimezoneOffset() / 60));
             var parsha_days = [];
             
             
@@ -773,24 +774,26 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                         $rootScope.ed_date = $rootScope.ed_date < eddt ? eddt : $rootScope.ed_date;
                         parsha_days.push([stdt, eddt]);
                       
-                        var temp_eddt = angular.copy(eddt);
-                        temp_eddt.setDate(temp_eddt.getDate()+1);
+                        var temp_stdt = angular.copy(stdt);
+                        temp_stdt.setDate(temp_stdt.getDate()+DATE_OFFSET);
                       
-                        if(temp_eddt >= selected_dt && selected_dt >= stdt){
+                        var temp_eddt = angular.copy(eddt);
+                        temp_eddt.setDate(temp_eddt.getDate()+DATE_OFFSET);
+                        if(temp_eddt >= selected_dt && selected_dt >= temp_stdt){
                             parsha_id = parsha.ID;
                             $rootScope["section_"+$stateParams['section_id']+"_selected_parsha_title"] = parsha.text_eng;
                             $scope.parsha_title = parsha.text_eng;
                             window.localStorage["section_"+$stateParams['section_id']+"_selected_parsha_title"] = parsha.text_eng;
-                              $rootScope.daily_parsha_title = $scope.parsha_title;
+                            $rootScope.daily_parsha_title = $scope.parsha_title;
                         }
                       
                     }
                       
                   var tmp_root_st_dt = angular.copy($rootScope.st_date);
-                  $rootScope.st_date.setDate(tmp_root_st_dt.getDate()+1);
+                  $rootScope.st_date.setDate(tmp_root_st_dt.getDate()+DATE_OFFSET);
                   
                   var tmp_root_ed_dt = angular.copy($rootScope.ed_date);
-                  $rootScope.ed_date.setDate(tmp_root_ed_dt.getDate()+1);
+                  $rootScope.ed_date.setDate(tmp_root_ed_dt.getDate()+DATE_OFFSET);
                       
                   var available_date = angular.copy($rootScope.st_date)
                   var available = false;
@@ -799,8 +802,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                   while (available_date < $rootScope.ed_date) {
                       for(i=0; i<parsha_days.length; i++){
                           day_item = angular.copy(parsha_days[i]);
-                          day_item[1].setDate(day_item[1].getDate()+1);
-                          day_item[0].setDate(day_item[0].getDate()+1);
+                          day_item[1].setDate(day_item[1].getDate()+DATE_OFFSET);
+                          day_item[0].setDate(day_item[0].getDate()+DATE_OFFSET);
                           if(day_item[1] >= available_date && available_date >= day_item[0]){
                               available = true;
                               break;
@@ -814,7 +817,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                       available_date.setDate(available_date.getDate()+1);
                   }
                       
-                  $scope.disable_days = disable_days;
+                    $scope.disable_days = disable_days;
                     TextService.getData(parsha_id, section_id, selected_dt).then(function(result){
                         $scope.textData = result;
                         $ionicLoading.hide();
@@ -902,14 +905,12 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     }
 
     if(last_poss > cur_poss){
-    console.log('show');
-    $scope.$apply(function() {
-    $scope.hideNavigation = false;
+        $scope.$apply(function() {
+        $scope.hideNavigation = false;
     });
     }else{
-    console.log('hide');
-    $scope.$apply(function() {
-    $scope.hideNavigation = true;
+        $scope.$apply(function() {
+        $scope.hideNavigation = true;
     });
     }
 
@@ -937,7 +938,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 //        $scope.selected_date.setDate($scope.selected_date.getDate()-1);
         $scope.weekly_index = $scope.weekly_index - 1
         $scope.selected_date = $scope.parsha_days[$scope.weekly_index][0]
-        $scope.selected_date.setDate($scope.selected_date.getDate()+1)
+        $scope.selected_date.setDate($scope.selected_date.getDate()+DATE_OFFSET)
         var date = $scope.selected_date.format("dddd, mmm, d, yyyy");
         window.localStorage["section_"+$stateParams['section_id']] = date;
         $scope.date = date;
@@ -951,7 +952,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
         }
         $scope.weekly_index = $scope.weekly_index + 1
         $scope.selected_date = $scope.parsha_days[$scope.weekly_index][0]
-        $scope.selected_date.setDate($scope.selected_date.getDate()+1)
+        $scope.selected_date.setDate($scope.selected_date.getDate()+DATE_OFFSET)
         var date = $scope.selected_date.format("dddd, mmm, d, yyyy");
         window.localStorage["section_"+$stateParams['section_id']] = date;
         $scope.date = date;
@@ -970,6 +971,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
         var parsha_id = 0;
         var selected_dt = $scope.selected_date
         $scope.parsha_days = [];
+        selected_dt.setHours(Math.abs(selected_dt.getTimezoneOffset() / 60));
             
         ParshaService.getData(selected_dt)
         .then(function(result){
@@ -985,17 +987,20 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                   $rootScope.ed_date = $rootScope.ed_date < eddt ? eddt : $rootScope.ed_date;
                   $scope.parsha_days.push([stdt, eddt]);
                   
-                  var temp_eddt = angular.copy(eddt);
-                  temp_eddt.setDate(temp_eddt.getDate()+1);
+                    var temp_stdt = angular.copy(stdt);
+                    temp_stdt.setDate(temp_stdt.getDate()+DATE_OFFSET);
               
-                  if(temp_eddt >= selected_dt && selected_dt >= stdt){
+                    var temp_eddt = angular.copy(eddt);
+                    temp_eddt.setDate(temp_eddt.getDate()+DATE_OFFSET);
+              
+                  if(temp_eddt >= selected_dt && selected_dt >= temp_stdt){
                       parsha_id = parsha.ID;
                       $scope.parsha_title = parsha.text_eng;
                       $rootScope["section_"+$stateParams['section_id']+"_selected_parsha_title"] = parsha.text_eng;
                       window.localStorage["section_"+$stateParams['section_id']+"_selected_parsha_title"] = parsha.text_eng;
                       $scope.weekly_index = i;    /* added 2016-11-16*/
                       $rootScope.daily_parsha_title = $scope.parsha_title;
-              console.log('weekly_index ->'+$scope.weekly_index);
+                      console.log('weekly_index ->'+$scope.weekly_index);
                   }
               
               }
@@ -1007,10 +1012,10 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
               }
               
               var tmp_root_st_dt = angular.copy($rootScope.st_date);
-              $rootScope.st_date.setDate(tmp_root_st_dt.getDate()+1);
+              $rootScope.st_date.setDate(tmp_root_st_dt.getDate()+DATE_OFFSET);
               
               var tmp_root_ed_dt = angular.copy($rootScope.ed_date);
-              $rootScope.ed_date.setDate(tmp_root_ed_dt.getDate()+1);
+              $rootScope.ed_date.setDate(tmp_root_ed_dt.getDate()+DATE_OFFSET);
               
               var available_date = angular.copy($rootScope.st_date)
               var available = false;
@@ -1019,8 +1024,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
               while (available_date < $rootScope.ed_date) {
                   for(i=0; i<$scope.parsha_days.length; i++){
                       day_item = angular.copy($scope.parsha_days[i]);
-                      day_item[1].setDate(day_item[1].getDate()+1);
-                      day_item[0].setDate(day_item[0].getDate()+1);
+                      day_item[1].setDate(day_item[1].getDate()+DATE_OFFSET);
+                      day_item[0].setDate(day_item[0].getDate()+DATE_OFFSET);
                       if(day_item[1] >= available_date && available_date >= day_item[0]){
                           available = true;
                           break;
