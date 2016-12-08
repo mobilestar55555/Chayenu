@@ -245,6 +245,9 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             console.log(params);
             $state.go(link, params);
         $rootScope.modal.hide();
+        $ionicHistory.nextViewOptions({
+        disableBack: true
+        });
     };
 
     $rootScope.$on('$destroy', function() {
