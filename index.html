@@ -57,14 +57,14 @@
                 </ion-item>
                 <ion-list id="modal_menu_list" class=" ">
                     <span ng-repeat="row in sectionData" ng-if="row.weekly==0" id="menu-list-item1">
-                        <ion-item  ng-click="closeModal()" ui-sref="menu.chumashJune102016({section_name: '{{row.title}}', section_color: '{{row.color}}', section_id: '{{row.ID}}', day: '{{(row.date) || todays_date}}'})">
+                        <ion-item  ng-click="closeModal('menu.chumashJune102016', {section_name: '{{row.title}}', section_color: '{{row.color}}', section_id: '{{row.ID}}', day: '{{(row.date) || todays_date}}'})" ui-sref="#">
                             <label class="section-color" ng-style="{'background-color': row.color}"></label>
                             {{row.title}}
                         </ion-item>
                     </span>
                     <br/>
                     <span ng-repeat="row in sectionData" ng-if="row.weekly == 1"  id="menu-list-item1">
-                        <ion-item  ng-click="closeModal()" ui-sref="menu.weekly({section_name: '{{row.title}}', section_color: '{{row.color}}', section_id: '{{row.ID}}', day: '{{(row.date) || todays_date}}'})">
+                        <ion-item  ng-click="closeModal('menu.weekly',{section_name: '{{row.title}}', section_color: '{{row.color}}', section_id: '{{row.ID}}', day: '{{(row.date) || todays_date}}'})" ui-sref="#">
                         <label class="section-color" ng-style="{'background-color': row.color}"></label>
                         {{row.title}}
                         </ion-item>

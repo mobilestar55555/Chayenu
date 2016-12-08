@@ -52,14 +52,14 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
         }
 
 
-        var moveData = $scope.scrollamount;
-        $scope.$apply(function(){
-            if(moveData>300){
-                $scope.sttButton=true;
-            }else{
-                $scope.sttButton=false;
-            }
-        }); //apply
+//        var moveData = $scope.scrollamount;
+//        $scope.$apply(function(){
+//            if(moveData>300){
+//                $scope.sttButton=true;
+//            }else{
+//                $scope.sttButton=false;
+//            }
+//        }); //apply
     };
             
     $scope.showPrevData = function(){
@@ -127,6 +127,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     bindTextData();
     
     function bindTextData(){
+        $ionicScrollDelegate.scrollTop(true);
+        $scope.sttButton=false;
        $ionicLoading.show({
            template: '<ion-spinner icon="ios"></ion-spinner>'
        });
@@ -235,8 +237,13 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     $rootScope.openModal = function() {
         $rootScope.modal.show();
     };
-
-    $rootScope.closeModal = function() {
+    $ionicHistory.nextViewOptions({
+    disableBack: true
+    });
+    $rootScope.closeModal = function(link, params) {
+            console.log(link);
+            console.log(params);
+            $state.go(link, params);
         $rootScope.modal.hide();
     };
 
@@ -286,14 +293,14 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     }
 
 
-    var moveData = $scope.scrollamount;
-    $scope.$apply(function(){
-    if(moveData>300){
-    $scope.sttButton=true;
-    }else{
-    $scope.sttButton=false;
-    }
-    }); //apply
+//    var moveData = $scope.scrollamount;
+//    $scope.$apply(function(){
+//    if(moveData>300){
+//    $scope.sttButton=true;
+//    }else{
+//    $scope.sttButton=false;
+//    }
+//    }); //apply
     };
 
     $scope.$on('syncing-complete', function(event, args) {
@@ -393,6 +400,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 
     
         function bindTextData(){
+            $ionicScrollDelegate.scrollTop(true);
+            $scope.sttButton=false;
             $ionicLoading.show({
                template: '<ion-spinner icon="ios"></ion-spinner>'
             });
@@ -605,7 +614,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             
 })
 
-.controller('DailyStudyController', function($scope, $ionicScrollDelegate, $location, TextService, $stateParams, $rootScope, ApiService, $ionicLoading, $filter, ionicDatePicker, ParshaService) {
+.controller('DailyStudyController', function($scope, $ionicScrollDelegate, $location, TextService, $stateParams, $rootScope, ApiService, $ionicLoading, $filter, ionicDatePicker, ParshaService,$ionicHistory) {
         $scope.date = window.localStorage["section_"+$stateParams['section_id']];
         $scope.disable_days = [];
         $scope.sttButton=false;
@@ -636,7 +645,10 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             $ionicScrollDelegate.scrollTop(true);
             $scope.sttButton=false;  //hide the button when reached top
         };
-
+            
+        $ionicHistory.nextViewOptions({
+            disableBack: true
+        });
         
         $scope.showDatePicker = function() {
             var selected_date = angular.copy($scope.selected_date);
@@ -709,14 +721,14 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             }
             
             
-            var moveData = $scope.scrollamount;            
-            $scope.$apply(function(){
-                if(moveData>300){
-                    $scope.sttButton=true;
-                }else{
-                    $scope.sttButton=false;
-                }
-            }); //apply
+//            var moveData = $scope.scrollamount;            
+//            $scope.$apply(function(){
+//                if(moveData>300){
+//                    $scope.sttButton=true;
+//                }else{
+//                    $scope.sttButton=false;
+//                }
+//            }); //apply
         };
 
         $scope.showPrevData = function(){
@@ -751,6 +763,10 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 
 
 		function bindTextData(){
+            $ionicScrollDelegate.scrollTop(true);
+            $scope.sttButton=false;
+
+            
             $ionicLoading.show({
                template: '<ion-spinner icon="ios"></ion-spinner>'
             });
@@ -827,7 +843,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 			
 		}
 })
-.controller('WeeklyStudyController', function($scope, $ionicScrollDelegate, $location, TextService, $stateParams, $rootScope, ApiService, $ionicLoading, $filter, ionicDatePicker, ParshaService)
+.controller('WeeklyStudyController', function($scope, $ionicScrollDelegate, $location, TextService, $stateParams, $rootScope, ApiService, $ionicLoading, $filter, ionicDatePicker, ParshaService, $ionicHistory)
 {
     $scope.date = window.localStorage["section_"+$stateParams['section_id']];
     $scope.disable_days = [];
@@ -890,6 +906,10 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
         $scope.sttButton=false;  //hide the button when reached top
     };
             
+    $ionicHistory.nextViewOptions({
+        disableBack: true
+    });
+
     var cur_poss = 0;
     var last_poss = 0;
 
@@ -922,14 +942,14 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     }
 
 
-    var moveData = $scope.scrollamount;
-    $scope.$apply(function(){
-    if(moveData>300){
-    $scope.sttButton=true;
-    }else{
-    $scope.sttButton=false;
-    }
-    }); //apply
+//    var moveData = $scope.scrollamount;
+//    $scope.$apply(function(){
+//    if(moveData>300){
+//    $scope.sttButton=true;
+//    }else{
+//    $scope.sttButton=false;
+//    }
+//    }); //apply
     };
 
     $scope.showPrevData = function(){
@@ -963,9 +983,10 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     }
     
     bindTextData();
-    
-    
+  
     function bindTextData(){
+        $ionicScrollDelegate.scrollTop(true);
+        $scope.sttButton=false;
         $ionicLoading.show({
             template: '<ion-spinner icon="ios"></ion-spinner>'
         });
