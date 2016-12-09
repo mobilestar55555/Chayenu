@@ -108,6 +108,15 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                 console.log('Return value from the datepicker popup is : ' + val, new Date(val));
                 bindTextData();
             },
+            selectedDateCallback: function(val){
+            console.log('select date : ' + val, new Date(val));
+            setTimeout(function(){
+                       $(".padding_zero").each(function(){
+                                               $(this).removeClass('available-week');
+                                               });
+                       $(".selected_date").parent().addClass("available-week");
+                       }, 500);
+            },
             isDaily: false,
             dateFormat: 'MMMM dd, yyyy',
             from: $rootScope.st_date, //Optional
@@ -121,6 +130,12 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             templateType: 'popup'       //Optional
         };
         ionicDatePicker.openDatePicker(ipObj1);
+        setTimeout(function(){
+            $(".padding_zero").each(function(){
+                $(this).removeClass('available-week');
+            });
+            $(".selected_date").parent().addClass("available-week");
+        }, 500);
     };
             
             
@@ -670,6 +685,12 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                 },
                 selectedDateCallback: function(val){
                     console.log('select date : ' + val, new Date(val));
+            
+                    $(".padding_zero").each(function(){
+                        $(this).removeClass('available-week');
+                    })
+                    $(".selected_date").parent().addClass("available-week")
+
                 },
                 isDaily: true,
                 dateFormat: 'MMMM dd, yyyy',
@@ -889,6 +910,15 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 
                 bindTextData();
             },
+            selectedDateCallback: function(val){
+                console.log('select date : ' + val, new Date(val));
+                setTimeout(function(){
+                    $(".padding_zero").each(function(){
+                        $(this).removeClass('available-week');
+                    });
+                    $(".selected_date").parent().addClass("available-week");
+                }, 500);
+            },
             isDaily: false,
             dateFormat: 'MMMM dd, yyyy',
             from: $rootScope.st_date, //Optional
@@ -902,6 +932,12 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             templateType: 'popup'       //Optional
         };
         ionicDatePicker.openDatePicker(ipObj1);
+        setTimeout(function(){
+            $(".padding_zero").each(function(){
+                $(this).removeClass('available-week');
+            });
+            $(".selected_date").parent().addClass("available-week");
+        }, 500);
     };
             
     $scope.scrollToTop = function() { //ng-click for back to top button
