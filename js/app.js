@@ -141,6 +141,9 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     Date.prototype.format = function (mask, utc) {
         return dateFormat(this, mask, utc);
     };
+    Date.prototype.addDays = function(n) {
+        return new Date(this.getTime() + (24*60*60*1000)*n);
+    }
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);

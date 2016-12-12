@@ -99,7 +99,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 
         var ipObj1 = {
             callback: function (val) {  //Mandatory
-                var selected_dt = new Date(val)
+                var selected_dt = new Date(val);
+                selected_dt = selected_dt.addDays(0-selected_dt.getDay());
                 $scope.selected_date = angular.copy(selected_dt);
                 var date = selected_dt.format("dddd, mmm, d, yyyy");
                 window.localStorage["section_"+section_id] = date;
@@ -109,13 +110,13 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                 bindTextData();
             },
             selectedDateCallback: function(val){
-            console.log('select date : ' + val, new Date(val));
-            setTimeout(function(){
-                       $(".padding_zero").each(function(){
-                                               $(this).removeClass('available-week');
-                                               });
-                       $(".selected_date").parent().addClass("available-week");
-                       }, 500);
+                console.log('select date : ' + val, new Date(val));
+                setTimeout(function(){
+                    $(".padding_zero").each(function(){
+                        $(this).removeClass('available-week');
+                    });
+                    $(".selected_date").parent().addClass("available-week");
+                }, 500);
             },
             isDaily: false,
             dateFormat: 'MMMM dd, yyyy',
@@ -256,15 +257,15 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     disableBack: true
     });
     $rootScope.closeModal = function(link, params) {
-            console.log(link);
-            console.log(params);
-            $state.go(link, params);
+        $state.go(link, params);
         $rootScope.modal.hide();
         $ionicHistory.nextViewOptions({
         disableBack: true
         });
     };
-
+    $rootScope.closeModalMenu = function() {
+        $rootScope.modal.hide();
+    };
     $rootScope.$on('$destroy', function() {
         $rootScope.modal.remove();
     });
@@ -685,12 +686,6 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                 },
                 selectedDateCallback: function(val){
                     console.log('select date : ' + val, new Date(val));
-            
-                    $(".padding_zero").each(function(){
-                        $(this).removeClass('available-week');
-                    })
-                    $(".selected_date").parent().addClass("available-week")
-
                 },
                 isDaily: true,
                 dateFormat: 'MMMM dd, yyyy',
@@ -902,6 +897,7 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             callback: function (val) {  //Mandatory
                 console.log('Return value from the datepicker popup is : ' + val, new Date(val));
                 var selected_dt = new Date(val)
+                selected_dt = selected_dt.addDays(0-selected_dt.getDay());
                 $scope.selected_date = angular.copy(selected_dt);
                 var date = selected_dt.format("dddd, mmm, d, yyyy");
                 window.localStorage["section_"+$stateParams['section_id']] = date;
