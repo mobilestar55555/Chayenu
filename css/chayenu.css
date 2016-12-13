@@ -471,3 +471,15 @@ h1{
 .available-week{
     background-color: #bad9b5;
 }
+@media only screen and (max-width: 360px){
+    body .ionic_datepicker_popup .popup-buttons .button_set{
+        height: 4em;
+    }
+}
+
+@media only screen and (max-width: 360px){
+    body .ionic_datepicker_popup .popup .button_today{
+        height: 2em;
+        bottom: 0.5em;
+    }
+}
