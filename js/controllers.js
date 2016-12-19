@@ -22,7 +22,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     };
     var cur_poss = 0;
     var last_poss = 0;
-
+    var top = 0;
+    var opacity = 1;
     $scope.scrollEvent = function() {
         $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
         cur_poss = $scope.scrollamount;
@@ -39,16 +40,39 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
             $scope.$apply(function() {
                 $scope.hideNavigation = false;
             });
+            if(top >= -1){
+                return false
+            }else{
+                top = top + 4;
+                if(opacity <= 1){
+                    opacity = opacity + 0.1
+                }
+                $(".bar-positive").css("top",top);
+                $(".bar-positive").eq(2).css("opacity",opacity);
+            }
+
         }else{
-            $scope.$apply(function() {
-                $scope.hideNavigation = true;
-            });
+            if(top < -60){
+                $scope.$apply(function() {
+                    $scope.hideNavigation = true;
+                });
+                return false
+            }else{
+                top = top - 4;
+                if(opacity >= 0){
+                    opacity = opacity - 0.1
+                }
+                $(".bar-positive").css("top",top);
+                $(".bar-positive").eq(2).css("opacity",opacity);
+            }
         }
 
         if(cur_poss == 0){
+            top = 0
             $scope.$apply(function() {
                 $scope.hideNavigation = false;
             });
+            $(".bar-positive").css("top",top);
         }
 
 
@@ -282,7 +306,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     };
     var cur_poss = 0;
     var last_poss = 0;
-
+    var top = 0;
+    var opacity = 1;
     $scope.scrollEvent = function() {
     $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
     cur_poss = $scope.scrollamount;
@@ -296,19 +321,41 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
     }
 
     if(last_poss > cur_poss){
-    $scope.$apply(function() {
-    $scope.hideNavigation = false;
-    });
+        $scope.$apply(function() {
+            $scope.hideNavigation = false;
+        });
+        if(top >= -1){
+            return false
+        }else{
+            top = top + 4;
+            if(opacity <= 1){
+                opacity = opacity + 0.1
+            }
+            $(".bar-positive").css("top",top);
+            $(".bar-positive").eq(2).css("opacity",opacity);
+        }
     }else{
-    $scope.$apply(function() {
-    $scope.hideNavigation = true;
-    });
+        if(top < -60){
+            $scope.$apply(function() {
+                $scope.hideNavigation = true;
+            });
+            return false
+        }else{
+            top = top - 4;
+            if(opacity >= 0){
+                opacity = opacity - 0.1
+            }
+            $(".bar-positive").css("top",top);
+            $(".bar-positive").eq(2).css("opacity",opacity);
+        }
     }
 
     if(cur_poss == 0){
-    $scope.$apply(function() {
-    $scope.hideNavigation = false;
-    });
+        top = 0
+        $scope.$apply(function() {
+            $scope.hideNavigation = false;
+        });
+        $(".bar-positive").css("top",top);
     }
 
 
@@ -708,7 +755,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 		});
         var cur_poss = 0;
         var last_poss = 0;
-            
+        var top = 0;
+        var opacity = 1;
         $scope.scrollEvent = function() {
             $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
             cur_poss = $scope.scrollamount;
@@ -727,20 +775,43 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
                 $scope.$apply(function() {
                     $scope.hideNavigation = false;
                 });
+                if(top >= -1){
+                    return false
+                }else{
+                    top = top + 4;
+                    if(opacity <= 1){
+                        opacity = opacity + 0.1
+                    }
+                    $(".bar-positive").css("top",top);
+                    $(".bar-positive").eq(2).css("opacity",opacity);
+                }
+            
             }else{
-                $scope.$apply(function() {
-                    $scope.hideNavigation = true;
-                });
+                if(top < -60){
+                    $scope.$apply(function() {
+                        $scope.hideNavigation = true;
+                    });
+                    return false
+                }else{
+                    top = top - 4;
+                    if(opacity >= 0){
+                        opacity = opacity - 0.1
+                    }
+                    $(".bar-positive").css("top",top);
+                    $(".bar-positive").eq(2).css("opacity",opacity);
+                }
             }
         
             if(cur_poss == 0){
+                top = 0;
                 $scope.$apply(function() {
                     $scope.hideNavigation = false;
                 });
+                $(".bar-positive").css("top",0);
             }
             
             
-//            var moveData = $scope.scrollamount;            
+//            var moveData = $scope.scrollamount;
 //            $scope.$apply(function(){
 //                if(moveData>300){
 //                    $scope.sttButton=true;
@@ -947,7 +1018,8 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 
     var cur_poss = 0;
     var last_poss = 0;
-
+    var top = 0;
+    var opacity = 1;
     $scope.scrollEvent = function() {
     $scope.scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
     cur_poss = $scope.scrollamount;
@@ -962,19 +1034,43 @@ angular.module('app.controllers', ['ionic', 'data.sync', 'db_starter', 'ngSaniti
 
     if(last_poss > cur_poss){
         $scope.$apply(function() {
-        $scope.hideNavigation = false;
-    });
+            $scope.hideNavigation = false;
+        });
+        if(top >= -1){
+            return false
+        }else{
+            top = top + 4;
+            if(opacity <= 1){
+                opacity = opacity + 0.1
+            }
+            $(".bar-positive").css("top",top);
+            $(".bar-positive").eq(2).css("opacity",opacity);
+        }
+
     }else{
-        $scope.$apply(function() {
-        $scope.hideNavigation = true;
-    });
+        if(top < -60){
+            $scope.$apply(function() {
+                $scope.hideNavigation = true;
+            });
+            return false
+        }else{
+            top = top - 4;
+            if(opacity >= 0){
+                opacity = opacity - 0.1
+            }
+            $(".bar-positive").css("top",top);
+            $(".bar-positive").eq(2).css("opacity",opacity);
+        }
     }
 
     if(cur_poss == 0){
-    $scope.$apply(function() {
-    $scope.hideNavigation = false;
-    });
+        top = 0;
+        $scope.$apply(function() {
+            $scope.hideNavigation = false;
+        });
+        $(".bar-positive").css("top",top);
     }
+
 
 
 //    var moveData = $scope.scrollamount;
